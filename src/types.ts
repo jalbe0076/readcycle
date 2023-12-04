@@ -8,3 +8,11 @@ export interface Book {
     imageLinks: {smallThumbnail: string};
   };
 };
+
+export interface VolumeInfo {
+    title: string;
+    authors: string[];
+    publisher: string;
+    publishedDate: string;
+    imageLinks: {smallThumbnail: string};
+};
