@@ -8,14 +8,13 @@ import SearchFormApi from '../SearchFormApi/SearchFormApi';
 function App() {
   const [searchResults, setSearchResults] = useState<Book[]>([]);
   const [totalResults, setTotalResults] = useState<number>(0);
-
-  // useEffect(() => {
-    
-  // }, []);
+  const [numberOfResults, setNumberOfResults] = useState<number>(10);
+  const [searchInputSaved, setsearchInputSaved] = useState<string>('');
 
   const getSearchResult = async(searchInput: string) => {
-    console.log('search', searchInput)
+    setsearchInputSaved(searchInput)
     try {
+      setNumberOfResults(10)
       const data = await getBooks(searchInput);
       data && setSearchResults(data.items);
       data && setTotalResults(data.totalItems);
@@ -25,10 +24,22 @@ function App() {
     }
   }
 
+  const handleViewMore = async() => {
+    try {
+      setNumberOfResults(prev => prev + 10)
+      const data = await getBooks(searchInputSaved, numberOfResults);
+      setSearchResults(prev => [...prev, ...data.items]);
+      console.log('after', searchResults)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="App">
       <SearchFormApi getSearchResults={getSearchResult} />
       {searchResults && <SearchedBooks bookResults={searchResults} />}
+      <button onClick={handleViewMore} >view more</button>
     </div>
   );
 }
