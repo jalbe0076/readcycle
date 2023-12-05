@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
-const SearchFormApi = () => {
+interface SearchFormApiProps {
+  getSearchResults: (searchInput: string) => void;
+}
+
+const SearchFormApi = ({getSearchResults}: SearchFormApiProps) => {
   const [searchInput, setSearchInput] = useState<string>('');
   
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getSearchResults(searchInput);
+    setSearchInput('');
+  }
+
   return (
-    <form>
-      <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder="Search" />
+    <form onSubmit={handleSearch}>
+      <input value={searchInput} onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchInput(e.target.value)} placeholder="Search" />
     </form>
   )
 };

@@ -5,9 +5,9 @@ const BookThumb = ({ volumeInfo }: { volumeInfo: VolumeInfo }) => {
 
   return (
     <article>
-          <img src={imageLinks.smallThumbnail}/>
+          <img src={imageLinks ? imageLinks.smallThumbnail : process.env.PUBLIC_URL + '/images/no-cover.jpg'}/>
           <h2>{title}</h2>
-          <p>by: {authors.join(', ')} | {publishedDate.slice(0, 4)}</p>
+          <p>{authors && `by: ${authors.join(', ')}`}{(authors && publishedDate) && ' | '}{publishedDate && publishedDate.slice(0, 4)}</p>
         </article>
   );
 };
