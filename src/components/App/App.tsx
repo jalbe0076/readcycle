@@ -8,7 +8,7 @@ import SearchFormApi from '../SearchFormApi/SearchFormApi';
 function App() {
   const [searchResults, setSearchResults] = useState<Book[]>([]);
   const [totalResults, setTotalResults] = useState<number>(0);
-  const [numberOfResults, setNumberOfResults] = useState<number>(10);
+  const [numberOfResults, setNumberOfResults] = useState<number>(0);
   const [searchInputSaved, setsearchInputSaved] = useState<string>('');
 
   const getSearchResult = async(searchInput: string) => {
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
       <SearchFormApi getSearchResults={getSearchResult} />
-      {searchResults && <SearchedBooks bookResults={searchResults} />}
+      {searchResults && <SearchedBooks totalResults={totalResults} numberOfResults={numberOfResults} bookResults={searchResults} />}
       <button onClick={handleViewMore} >view more</button>
     </div>
   );

@@ -1,6 +1,6 @@
 import { VolumeInfo } from "../../types";
 
-const BookThumb = ({ volumeInfo }: { volumeInfo: VolumeInfo }) => {
+const BookThumb = ({ volumeInfo, id }: { volumeInfo: VolumeInfo, id: string }) => {
   const {title, authors, publishedDate, imageLinks } = volumeInfo;
 
   return (
